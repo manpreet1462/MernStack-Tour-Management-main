@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: var(--secondary-color); /* Corrected */
+    background: var(--secondary-color); 
     padding: 0.5rem;
     margin-bottom: 1rem;
     line-height: 50px;
@@ -34,17 +34,17 @@
     font-size: 1.1rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
-    color: var(--heading-color); /* Optional enhancement */
+    color: var(--heading-color); 
 }
 
 .service__item p {
     font-size: 0.9rem;
-    color: var(--text-color); /* Corrected */
+    color: var(--text-color); 
     line-height: 1.5rem;
 }
 
 /* Responsive Enhancements */
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     .service__img {
         width: 40px;
         height: 40px;

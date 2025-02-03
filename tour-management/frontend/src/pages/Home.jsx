@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../styles/home.css'
 import { Container, Row, Col } from 'reactstrap'
 import heroImg from '../assets/images/hero-img01.jpg'
@@ -14,6 +14,9 @@ import MasonryImagesGallery from '../components/Image-gallery/MasonryImagesGalle
 import Testimonials from '../components/Testimonial/Testimonials'
 import NewsLetter from '../shared/NewsLetter'
 const Home = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
     return (
         <>
             <section>
@@ -39,7 +42,7 @@ const Home = () => {
                             </div>
                         </Col>
                         <Col lg='2'>
-                            <div className="hero__image-box mt-4">
+                            <div className="hero__image-box hero__video-box mt-4">
                                 <video src={heroVideo} controls />
                             </div>
                         </Col>

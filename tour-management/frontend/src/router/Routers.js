@@ -7,6 +7,8 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import SearchResultList from '../pages/SearchResultList';
 import ThankYou from '../pages/ThankYou';
+import MasonryImagesGallery from '../components/Image-gallery/MasonryImagesGallery';
+import About from '../components/About/About';
 
 const Router = () => {
   return (
@@ -16,6 +18,8 @@ const Router = () => {
         <Route path='/tours' element={<Tours/>}/> 
         <Route path='/tours/:id' element={<TourDetail/>}/> 
         <Route path='/login' element={<Login/>}/> 
+        <Route path='/gallery' element={<MasonryImagesGallery/>}/> 
+        <Route path='/about' element={<About/>}/> 
         <Route path='/register' element={<Register/>}/> 
         <Route path='/thank-you' element={<ThankYou/>}/> 
         <Route path='/tours/search' element={<SearchResultList/>}/> 

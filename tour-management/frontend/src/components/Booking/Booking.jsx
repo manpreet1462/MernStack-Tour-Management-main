@@ -1,38 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './booking.css';
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
-
-
+import { AuthContext } from '../../context/AuthContext';
+import { BASE_URL } from '../../utils/config';
 const Booking = ({ tour, avgRating }) => {
-    const [credentials, setCredentials] = useState({
-        userId: '01',
-        userEmail: 'example@gmail.com',
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext)
+    const { price, reviews, title } = tour;
+    const [booking, setBooking] = useState({
+        userId: user && user._id,
+        userEmail: user && user.email,
+        tourName: title,
         fullName: '',
         phone: '',
         guestSize: 1,
         bookAt: ''
     });
-    const navigate = useNavigate();
-
     // Function to update state
     const handleChange = (e) => {
         const { id, value } = e.target;
-        setCredentials(prev => ({
+        setBooking(prev => ({
             ...prev,
             [id]: id === 'guestSize' ? parseInt(value, 10) || 1 : value
         }));
     };
 
-    const { price, reviews } = tour;
     const serviceCharge = 10;
-    const totalPrice = price * credentials.guestSize + serviceCharge;
+    const totalPrice = price * booking.guestSize + serviceCharge;
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/thank-you');
+
+        try {
+            if (!user || user === undefined || user === null) {
+                return alert('Please sign in')
+            }
+            const res = await fetch(`${BASE_URL}/booking`, {
+                method: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify(booking)
+            })
+            const result = await res.json()
+            if (!res.ok) {
+                return alert(result.message)
+            }
+            navigate('/thank-you');
+
+        } catch (error) {
+            alert(error.message)
+        }
     };
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     return (
         <div className='booking'>
@@ -56,7 +81,7 @@ const Booking = ({ tour, avgRating }) => {
                             aria-label='Full Name'
                             required
                             onChange={handleChange}
-                            value={credentials.fullName}
+                            value={booking.fullName}
                         />
                     </FormGroup>
                     <FormGroup>
@@ -68,7 +93,7 @@ const Booking = ({ tour, avgRating }) => {
                             required
                             min="1"
                             onChange={handleChange}
-                            value={credentials.phone}
+                            value={booking.phone}
                         />
                     </FormGroup>
                     <FormGroup className="d-flex align-items-center gap-3">
@@ -78,7 +103,7 @@ const Booking = ({ tour, avgRating }) => {
                             aria-label='Booking Date'
                             required
                             onChange={handleChange}
-                            value={credentials.bookAt}
+                            value={booking.bookAt}
                         />
                         <input
                             type="number"
@@ -88,7 +113,7 @@ const Booking = ({ tour, avgRating }) => {
                             required
                             min="1"
                             onChange={handleChange}
-                            value={credentials.guestSize}
+                            value={booking.guestSize}
                         />
                     </FormGroup>
                     <Button type="submit" className='btn primary__btn w-100 mt-4'>Book Now</Button>
@@ -100,9 +125,9 @@ const Booking = ({ tour, avgRating }) => {
                 <ListGroup>
                     <ListGroupItem className="border-0 px-0">
                         <h5 className='d-flex align-items-center gap-1'>
-                            ${price} <i className="ri-close-line"></i> {credentials.guestSize} person(s)
+                            ${price} <i className="ri-close-line"></i> {booking.guestSize} person(s)
                         </h5>
-                        <span>${price * credentials.guestSize}</span>
+                        <span>${price * booking.guestSize}</span>
                     </ListGroupItem>
                     <ListGroupItem className="border-0 px-0">
                         <h5>Service charge</h5>

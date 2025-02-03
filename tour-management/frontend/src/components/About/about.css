@@ -1,0 +1,39 @@
+.about__container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .about__title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color, #333);
+    margin-bottom: 1rem;
+  }
+  
+  .about__description {
+    font-size: 1.2rem;
+    color: var(--text-color, #666);
+    margin-bottom: 2rem;
+  }
+  
+  .about__content {
+    text-align: left;
+  }
+  
+  .about__content h2 {
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
+    color: var(--secondary-color, #ff6b6b);
+  }
+  
+  .about__content p {
+    font-size: 1.1rem;
+    color: var(--text-color, #444);
+    line-height: 1.6;
+  }
+  

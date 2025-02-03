@@ -4,7 +4,7 @@ import galleryImages from './galleryImages'
 
 const MasonryImagesGallery = () => {
     return (
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 768: 3, 992: 4 }}>
+        <ResponsiveMasonry style={{ width: "90%", marginLeft: "60px" }} columnsCountBreakPoints={{ 350: 1, 768: 3, 992: 4 }}>
             <Masonry gutter='1rem'>
                 {
                     galleryImages.map((item, index) => (
